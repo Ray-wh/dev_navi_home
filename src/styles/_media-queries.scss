@@ -1,0 +1,10 @@
+// 媒体查询样式
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0a0a;
+    --text: #ededed;
+  }
+  html {
+    color-scheme: dark;
+  }
+}

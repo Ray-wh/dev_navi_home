@@ -1,0 +1,19 @@
+// 优先级关系：:root > html > body > *
+// 1. :root: 定义全局变量，影响所有元素
+// 2. html: 定义文档的根元素，影响所有元素
+// 3. body: 定义文档的主体，影响所有元素
+// 4. *: 通配符，定义所有元素的样式
+
+// 额外说明：
+// 1. _variables.scss: 定义基础变量和CSS自定义属性
+// 2. _media-queries.scss: 处理媒体查询相关样式
+// 3. _reset.scss: 重置浏览器默认样式
+// 4. _base.scss: 定义基础元素样式
+
+// 基础变量
+// 全局样式导入
+@import './_variables';
+@import './_media-queries';
+@import './_reset';
+@import './_base';
+
