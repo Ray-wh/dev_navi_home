@@ -6,9 +6,8 @@ import PrefixIcon from "./components/PrefixIcon";
 import SuffixIcon from "./components/SuffixIcon";
 import SearchEnginePanel from "./components/SearchEnginePanel";
 import FuzzySearchSuggestions from "./components/FuzzySearchSuggestions";
-import { ACTIVE_PANEL } from './contants/panelTypes';
+import { ACTIVE_PANEL } from "./contants/panelTypes";
 import styles from "./index.module.scss";
-
 
 const SearchBox = () => {
   const [activePanel, setActivePanel] = useState(ACTIVE_PANEL.NONE);
@@ -41,18 +40,18 @@ const SearchBox = () => {
   }, [searchValue]);
 
   // 处理输入框失去焦点
-    const handleInputBlur = useCallback(() => {
-      // 失去焦点且无搜索内容时，不显示任何面板
-      if (searchValue.length === 0) {
-        setActivePanel(ACTIVE_PANEL.NONE);
-      }
-    }, [searchValue]);
+  const handleInputBlur = useCallback(() => {
+    // 失去焦点且无搜索内容时，不显示任何面板
+    if (searchValue.length === 0) {
+      setActivePanel(ACTIVE_PANEL.NONE);
+    }
+  }, [searchValue]);
 
-    // 处理搜索引擎选择
-    const handleEngineSelect = useCallback((engine) => {
-      setSelectedEngine(engine);
-      setActivePanel(ACTIVE_PANEL.NONE); // 选择后关闭面板
-    }, []);
+  // 处理搜索引擎选择
+  const handleEngineSelect = useCallback((engine) => {
+    setSelectedEngine(engine);
+    setActivePanel(ACTIVE_PANEL.NONE); // 选择后关闭面板
+  }, []);
 
   return (
     <div className={styles.searchContainer}>
@@ -66,35 +65,34 @@ const SearchBox = () => {
         onBlur={handleInputBlur}
         className={styles.searchInput}
         prefix={
-            <PrefixIcon
-              isExpanded={activePanel === ACTIVE_PANEL.ENGINE_PANEL}
-              onClick={toggleEnginePanel}
-            />
-          }
+          <PrefixIcon
+            isExpanded={activePanel === ACTIVE_PANEL.ENGINE_PANEL}
+            onClick={toggleEnginePanel}
+          />
+        }
         suffix={<SuffixIcon setSearchValue={setSearchValue} />}
       />
 
-      {/* Search Engine Panel */}
-        {activePanel === ACTIVE_PANEL.ENGINE_PANEL && (
-          <SearchEnginePanel 
-            key={selectedEngine} // 添加key确保组件重新渲染
-            onSelect={handleEngineSelect} 
-            selectedEngine={selectedEngine} 
-          />
-        )}
+      {/* 搜索引擎选择 */}
+      {activePanel === ACTIVE_PANEL.ENGINE_PANEL && (
+        <SearchEnginePanel
+          key={selectedEngine} // 添加key确保组件重新渲染
+          onSelect={handleEngineSelect}
+          selectedEngine={selectedEngine}
+        />
+      )}
 
       {/* 模糊搜索建议 */}
-        {activePanel === ACTIVE_PANEL.SEARCH && (
-          <FuzzySearchSuggestions 
-            inputValue={searchValue} 
-            engine={selectedEngine.toLowerCase()} 
-            isVisible={activePanel === ACTIVE_PANEL.SEARCH} 
-            onSelect={(suggestion) => setSearchValue(suggestion)} 
-          />
-        )}
+      {activePanel === ACTIVE_PANEL.SEARCH && (
+        <FuzzySearchSuggestions
+          inputValue={searchValue}
+          engine={selectedEngine.toLowerCase()}
+          isVisible={activePanel === ACTIVE_PANEL.SEARCH}
+          onSelect={(suggestion) => setSearchValue(suggestion)}
+        />
+      )}
     </div>
   );
 };
-
 
 export default SearchBox;

@@ -1,0 +1,22 @@
+.prefixIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  padding: 0 8px;
+  background-color: antiquewhite;
+}
+
+/* Vercel Logo 样式 */
+.vercelLogo {
+  transition: transform 0.3s ease;
+  margin-left: 4px;
+  background-color: black;
+}
+
+/* 旋转效果 */
+.rotated {
+  transform: rotate(180deg);
+}
