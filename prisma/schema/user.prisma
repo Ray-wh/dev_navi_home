@@ -1,0 +1,31 @@
+model User {
+  // 用户唯一标识符，自动递增
+  id          Int           @id @default(autoincrement())
+  // 用户名
+  name        String
+  // 性别（可选）
+  gender      String?
+  // 手机号（可选）
+  phone       String?
+  // 电子邮件，唯一
+  email       String        @unique
+  // 密码（哈希存储）
+  password    String        @default("123456")
+  // 头像URL（可选）
+  avatar      String?
+  // 个性签名（可选）
+  bio         String?
+  // 微信号（可选）
+  wechatId    String?
+  // QQ号（可选）
+  qqId        String?
+  // 创建时间，默认为当前时间
+  createdAt   DateTime      @default(now())
+  // 更新时间，自动更新
+  updatedAt   DateTime      @updatedAt
+
+  // 单向关联：一个用户可以有多个搜索引擎
+  engines     SearchEngine[]
+  // 单向关联：一个用户可以有多个卡片
+  cards       Card[]
+}

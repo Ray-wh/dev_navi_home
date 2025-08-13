@@ -1,21 +1,39 @@
 {
-  "name": "my-app-demo",
+  "name": "dev_navi_home",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:ui": "npx prisma studio",
+    "db:push": "npx prisma db push",
+    "db:migrate": "rm -rf prisma/migrations && npx prisma migrate dev --name init",
+    "db:generate": "npx prisma generate"
   },
   "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.4.6"
+    "@prisma/client": "^6.13.0",
+    "@reduxjs/toolkit": "^2.8.2",
+    "antd": "^5.26.7",
+    "axios": "^1.11.0",
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.539.0",
+    "next": "15.4.6",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-redux": "^9.2.0",
+    "redux-persist": "^6.0.0",
+    "sass": "^1.90.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
-    "@eslint/eslintrc": "^3"
+    "prisma": "^6.13.0"
+  },
+  "prisma": {
+    "schema": "./prisma"
   }
 }

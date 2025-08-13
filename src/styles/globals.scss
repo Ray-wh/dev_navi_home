@@ -1,0 +1,22 @@
+// 全局样式导入
+@use './variables' as v;
+@use './reset';
+@use './dark-mode';
+@use './fonts';
+
+// 导入Ant Design样式
+@import 'antd/dist/reset.css';
+
+// Define font variables and classes
+:root {
+  --font-geist-sans: v.$font-geist-sans;
+  --font-geist-mono: v.$font-geist-mono;
+}
+
+.font-geist-sans {
+  font-family: var(--font-geist-sans);
+}
+
+.font-geist-mono {
+  font-family: var(--font-geist-mono);
+}

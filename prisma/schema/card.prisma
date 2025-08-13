@@ -1,0 +1,21 @@
+model Card {
+  // 卡片唯一标识符，自动递增
+  id          Int      @id @default(autoincrement())
+  // 卡片标题
+  title       String
+  // 卡片描述（可选）
+  description String?
+  // 卡片图标URL（可选）
+  icon        String?
+  // 卡片内容
+  content     String
+  // 卡片相关URL（可选）
+  url         String?
+  // 关联到用户
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      Int?
+  // 创建时间，默认为当前时间
+  createdAt   DateTime @default(now())
+  // 更新时间，自动更新
+  updatedAt   DateTime @updatedAt
+}
