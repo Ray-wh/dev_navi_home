@@ -3,7 +3,7 @@
 import React from "react";
 import { setupAntdRender } from "@/utils/antd-render";
 import { geistSans, geistMono } from "@/utils/setup-fonts";
-import { metadata, useMetadata } from "@/utils/use-metadata";
+import { useMetadata } from "@/utils/use-metadata";
 import { RootStoreProvider } from "@/store";
 import "@/styles/globals.scss";
 
@@ -21,5 +21,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-
-export { metadata };

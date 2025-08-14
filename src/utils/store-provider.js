@@ -3,22 +3,46 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // 使用localStorage作为持久化存储
+import localStorage from "redux-persist/lib/storage"; // 使用localStorage作为持久化存储
+import sessionStorage from "redux-persist/es/storage/session"; // 使用sessionStorage作为持久化存储
 
+const TYPE_STORE = {
+  SESSION: "session",
+  LOCAL: "local",
+};
+
+const getCurrentStorage = (loadingType) => {
+  if (loadingType === loadingType.local) {
+    return localStorage;
+  } else if (loadingType === loadingType.session) {
+    return sessionStorage;
+  } else {
+    return localStorage;
+  }
+};
 /**
  * 创建Redux store的工具函数
  * @param {Object} options - 配置选项
  * @param {Object} [options.reducers={}] - 要组合的reducers
  * @param {Object} [options.persistConfig={}] - 持久化配置
  * @param {Function} [options.middlewareConfig] - 中间件配置函数
+ * @param {String} [options.typeStore=TYPE_STORE.LOCAL] - 持久化加载类型
  * @returns {Object} 包含store和persistor的对象
  */
 const createStore = (options = {}) => {
   // 合并默认配置和用户配置
-  const { reducers = {}, persistConfig = {}, middlewareConfig } = options;
+  const {
+    reducers = {},
+    persistConfig = {},
+    middlewareConfig,
+    typeStore = TYPE_STORE.LOCAL,
+  } = options;
 
   // 默认持久化配置
-  const defaultPersistConfig = { key: "root", storage };
+  const defaultPersistConfig = {
+    key: "root",
+    storage: getCurrentStorage(typeStore),
+  };
 
   // 合并持久化配置
   const mergedPersistConfig = {
@@ -26,8 +50,10 @@ const createStore = (options = {}) => {
     ...persistConfig,
   };
 
-  // 组合reducers
-  const rootReducer = combineReducers({ ...reducers });
+  // 处理空reducers情况
+  const rootReducer = Object.keys(reducers).length > 0
+    ? combineReducers({ ...reducers })
+    : (state = {}) => state; // 提供默认reducer
 
   // 应用持久化配置
   const reducer = persistReducer(mergedPersistConfig, rootReducer);
@@ -54,9 +80,10 @@ const createStore = (options = {}) => {
  * @param {Object} [options.persistConfig={}] - 持久化配置
  * @param {Function} [options.middlewareConfig] - 中间件配置函数
  * @param {React.ReactNode} [options.loading=null] - 持久化加载时显示的组件
+ * @param {String} [options.typeStore=TYPE_STORE.LOCAL] - 持久化加载类型
  * @returns {React.ComponentType} 预配置的Redux Provider组件
  */
-export function createStoreProvider(options = {}) {
+function createStoreProvider(options = {}) {
   // 提取配置项
   const { loading = null } = options;
 
@@ -74,3 +101,6 @@ export function createStoreProvider(options = {}) {
 
   return StoreProvider;
 }
+
+export { TYPE_STORE };
+export { createStoreProvider };
