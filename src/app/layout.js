@@ -4,7 +4,7 @@ import React from "react";
 import { setupAntdRender } from "@/utils/antd-render";
 import { geistSans, geistMono } from "@/utils/setup-fonts";
 import { useMetadata } from "@/utils/use-metadata";
-import { RootStoreProvider } from "@/store";
+import RootStoreProvider from "@/store/root";
 import "@/styles/globals.scss";
 
 // 初始化Ant Design渲染
