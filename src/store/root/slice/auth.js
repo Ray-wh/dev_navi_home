@@ -1,10 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createReducerSlice } from "@/utils/reducer-slice";
 
 export const authSliceName = "auth";
 
 // 创建 slice
-const authSlice = createSlice({
-  name: authSliceName,
+const { actions, reducer } = createReducerSlice(authSliceName, {
   initialState: {
     isAuthenticated: false,
     user: null,
@@ -48,7 +47,7 @@ const authSlice = createSlice({
 
 // 导出 action 创建器
 export const { loginStart, loginSuccess, loginFailure, logout, updateUser } =
-  authSlice.actions;
+  actions;
 
 // 导出 reducer
-export default authSlice.reducer;
+export default reducer;
